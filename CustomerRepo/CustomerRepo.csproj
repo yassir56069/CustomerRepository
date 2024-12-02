@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Content Remove="Components\Pages\Component.razor" />
-    <Content Remove="Components\Pages\Login.razor" />
   </ItemGroup>
 
   <ItemGroup>
