@@ -1,13 +1,13 @@
 .navbar-container {
     display:flex;
     flex-direction: row;
-    border-radius: 7px;
-
+    column-gap: 30px;
 }
 
 .nav-item {
     display: flex;
     background-color: #ffffff0d;
+    border-radius: 7px;
 }
 
 .nav-link {
