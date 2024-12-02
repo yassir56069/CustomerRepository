@@ -1,0 +1,19 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+
+<PageTitle> Customer Repository BCO | Login</PageTitle>
+
+<h1>please login bwlo</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

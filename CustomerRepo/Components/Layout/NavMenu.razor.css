@@ -1,0 +1,15 @@
+.navbar-container {
+    display:flex;
+    flex-direction: row;
+    border-radius: 7px;
+
+}
+
+.nav-item {
+    display: flex;
+    background-color: #ffffff0d;
+}
+
+.nav-link {
+    color: aliceblue;
+}
