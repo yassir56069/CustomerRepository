@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerRepo.Data
 {
@@ -32,6 +33,7 @@ namespace CustomerRepo.Data
     // Define your entity classes to match database schema
     public class BCO_User
     {
+        [Key]
         public int UserID { get; set; }
         public required string UserName { get; set; }
         public required string UserPass { get; set; }
@@ -39,6 +41,7 @@ namespace CustomerRepo.Data
 
     public class Customer
     {
+        [Key]
         public int CustomerID { get; set; }
         public required string CustomerCode { get; set; }
         public required string CustomerKey { get; set; }
@@ -48,6 +51,7 @@ namespace CustomerRepo.Data
 
     public class Token
     {
+        [Key]
         public int TokenID { get; set; }
         public required string TokenValue { get; set; }
         public DateTime TokenInitDate { get; set; }
@@ -56,6 +60,7 @@ namespace CustomerRepo.Data
 
     public class APKInfo
     {
+        [Key]
         public int APKID { get; set; }
         public required string APKName { get; set; }
         public required string APKPath { get; set; }
