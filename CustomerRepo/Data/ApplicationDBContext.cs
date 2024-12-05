@@ -7,10 +7,10 @@ namespace CustomerRepo.Data
     {
 
         // DbSet properties map to your database tables
-        public required DbSet<BCO_User> BCO_Users { get; set; }
-        public required DbSet<Customer> Customers { get; set; }
-        public required DbSet<Token> Tokens { get; set; }
-        public required DbSet<APKInfo> APKInfos { get; set; }
+        public  DbSet<BCO_User> BCO_Users { get; set; }
+        public  DbSet<Customer> Customers { get; set; }
+        public  DbSet<Token> Tokens { get; set; }
+        public  DbSet<APKInfo> APKInfos { get; set; }
 
         // Fluent API configurations (optional for advanced setups)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +21,10 @@ namespace CustomerRepo.Data
             modelBuilder.Entity<BCO_User>()
                 .HasIndex(u => u.UserName)
                 .IsUnique();
+
+            modelBuilder.Entity<BCO_User>().HasData(
+                new BCO_User { UserID=3, UserName = "codetext", UserPass= "pass4560" }
+                );
 
             // Example: Foreign key relationship
             modelBuilder.Entity<APKInfo>()
