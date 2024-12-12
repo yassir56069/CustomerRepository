@@ -1,5 +1,11 @@
+﻿.navbar {
+    border-style: solid;
+    border-color: #F3F3F3;
+    border-width: 2px;
+}
+
 .navbar-container {
-    display:flex;
+    display: flex;
     flex-direction: row;
     column-gap: 30px;
     row-gap: 30px;
@@ -10,8 +16,4 @@
     display: flex;
     background-color: #ffffff0d;
     border-radius: 7px;
-}
-
-.nav-link {
-    color: aliceblue;
 }

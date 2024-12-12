@@ -1,9 +1,11 @@
-﻿
-<div class="p-3 navbar bg-black bg-opacity-75 flex-row" onclick="document.querySelector('.navbar-toggler').click()">
+﻿<div class="p-3 navbar  flex-row" 
+    style"border-style: solid;
+    border-color: #F3F3F3;
+    border-width: 2px;" 
+    onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="navbar-container">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href
-            ="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Login
             </NavLink>
         </div>
@@ -11,12 +13,26 @@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="Crud">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> CRUD
-            </NavLink>  
+            </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddClient">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add Client
+            <NavLink class="nav-link" 
+            style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height:37px;
+                padding: 10px;
+                color: var(--user-black);
+                border-style: solid;
+                border-color: var(--user-black);
+                border-width: 1px;
+                border-radius: 5px;
+            
+            "
+            href="AddClient">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add / Upload
             </NavLink>
         </div>
     </nav>
