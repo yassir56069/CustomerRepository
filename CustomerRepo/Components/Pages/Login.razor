@@ -1,16 +1,36 @@
-﻿@page "/"
+﻿@page "/login"
+@using CustomerRepo.Services
 
-<PageTitle>	BCO Customer Repository| Login </PageTitle>
+@inject AuthService AuthService
+@inject NavigationManager Navigation
 
-<section>
-	<div class="flex-center login-content">
-		<div class="image-box" >
-		</div>
+<h3>Login</h3>
 
-		<section class="flex-col login-f">
-			<h1 class="login-form-header"> JKIS Customer Repository Back Office  </h1>
-		</section>
-	</div>
+<div>
+    <input @bind="Username" placeholder="Username" />
+    <input @bind="Password" type="password" placeholder="Password" />
+    <button @onclick="HandleLogin">Login</button>
+</div>
 
-</section>
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <p style="color: red">@ErrorMessage</p>
+}
 
+@code {
+    private string Username { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+    private string? ErrorMessage { get; set; }
+
+    private async Task HandleLogin()
+    {
+        if (await AuthService.LoginAsync(Username, Password))
+        {
+            Navigation.NavigateTo("/dashboard");
+        }
+        else
+        {
+            ErrorMessage = "Invalid username or password.";
+        }
+    }
+}
