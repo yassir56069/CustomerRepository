@@ -17,22 +17,3 @@
     background-color: #ffffff0d;
     border-radius: 7px;
 }
-
-.nav-item .nav-link ::deep a {
-    display: flex;
-    font-family: 'Anuphan';
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 13px;
-    justify-content: center;
-    align-items: center;
-    width: 120px;
-    height: 37px;
-    padding: 20px;
-    color: var(--user-black) !important;
-    border-style: solid;
-    border-color: var(--user-black);
-    border-width: 1px;
-    border-radius: 5px;
-}
