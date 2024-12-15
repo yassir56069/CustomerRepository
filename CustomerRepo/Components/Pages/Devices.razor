@@ -5,15 +5,14 @@
 
 @rendermode pageRenderMode
 
-@page "/AddClient"
+@page "/Devices"
 
-<h1 class="p-h1">Upload APK</h1>
+<h1 class="p-h1">Devices</h1>
 
 <div class="flex-center">
-    <div>
-        <InsertTableQuery DatabaseContext="@DbContext" />
-    </div>
+	<SearchableDynamicTable DbContext="@DbContext.Devices" ColumnsToShow="@(new[] { "DeviceID", "DeviceCode","DeviceModel"})" RowLimit="50" />
 </div>
+
 @code {
 	private static IComponentRenderMode pageRenderMode = InteractiveServer;
 }

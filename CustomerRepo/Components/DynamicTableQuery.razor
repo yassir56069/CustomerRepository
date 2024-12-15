@@ -1,0 +1,73 @@
+﻿@using CustomerRepo.Data
+@using CustomerRepo.Models
+@using Microsoft.EntityFrameworkCore
+@inject IServiceProvider ServiceProvider
+
+@typeparam T where T : class
+
+@code {
+    [Parameter, EditorRequired]
+    public DbSet<T> DbContext { get; set; } = default!;
+
+
+    [Parameter]
+    public IEnumerable<string>? ColumnsToShow { get; set; } = null;
+
+    [Parameter]
+    public int RowLimit { get; set; } = 100;
+
+    private List<T> Data { get; set; } = new();
+    private List<string> ColumnNames { get; set; } = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (DbContext == null)
+        {
+            throw new ArgumentNullException(nameof(DbContext));
+        }
+
+        // Retrieve data from the DbSet
+        Data = await DbContext.Take(RowLimit).ToListAsync();
+
+        // Fetch column names dynamically if ColumnsToShow is not provided
+        if (ColumnsToShow == null || !ColumnsToShow.Any())
+        {
+            var modelType = typeof(T);
+            ColumnNames = modelType.GetProperties().Select(p => p.Name).ToList();
+        }
+        else
+        {
+            ColumnNames = ColumnsToShow.ToList();
+        }
+    }
+
+    private object? GetValue(T item, string columnName)
+    {
+        var property = typeof(T).GetProperty(columnName);
+        return property?.GetValue(item);
+    }
+}
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (var columnName in ColumnNames)
+                {
+                    <th>@columnName</th>
+                }   
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Data)
+            {
+                <tr>
+                    @foreach (var columnName in ColumnNames)
+                    {
+                        <td>@GetValue(item, columnName)</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

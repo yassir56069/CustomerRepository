@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&family=Familjen+Grotesk:wght@400..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&family=B612+Mono&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
     --user-black: #606060 !important;
@@ -21,12 +20,24 @@ html, body {
 
 
 h1 {
-/*    padding: 30px;*/
-/*    padding-top: 20px;*/
+
     font-family: "Familjen Grotesk" !important;
     color:  var(--true-black) !important;
     font-weight: 800 !important;
     font-size: var(--h1-font-size) !important;
+}
+
+.p-h1 {
+        padding: 30px;
+        padding-top: 20px;
+}
+
+.dynamic-query-fill {
+    border-style: solid;
+    border-color: var(--middle-grey);
+    border-width: 1px;
+    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .flex {
@@ -60,4 +71,10 @@ h1 {
 
     border-radius: 20px;
     background-color: var(--middle-grey);
+}
+
+.form-control {
+    font-family: 'B612 Mono', monospace;
+    color: var(--user-black);
+    font-size: 20px;
 }

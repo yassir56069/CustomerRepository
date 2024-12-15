@@ -1,117 +1,42 @@
 ﻿<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap" rel="stylesheet">
-
+@inject NavigationManager NavigationManager
 
 <div class="p-3 navbar  flex-row" 
-    style="
-    border-style: solid;
-    border-color: #F3F3F3;
-    border-width: 2px;" 
     onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="navbar-container">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link"
-                     style="
-                display: flex;
-                font-family: 'Anuphan';
-                font-optical-sizing: auto;
-                font-weight: 300;
-                font-style: normal;
-                font-size: 13px;
-                justify-content: center;
-                align-items: center;
-                width:120px;
-                height:37px;
-                color: var(--user-black);
-                border-style: solid;
-                border-color: var(--user-black);
-                border-width: 1px;
-                border-radius: 5px;
-
-            "
-            
-            href="" Match="NavLinkMatch.All">
+        <div class=nav-item px-3">
+            <a href="/" class="@GetActiveClass("/")">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Customers
-            </NavLink>
+            </a>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link ui-font"
-                style="
-                display: flex;
-                font-family: 'Anuphan';
-                font-optical-sizing: auto;
-                font-weight: 300;
-                font-style: normal;
-                font-size: 13px;
-                justify-content: center;
-                align-items: center;
-                width:120px;
-                height:37px;
-                color: var(--user-black);
-                border-style: solid;
-                border-color: var(--user-black);
-                border-width: 1px;
-                border-radius: 5px;
-
-            "
-            
-            href="Crud">
+            <a href="/Tokens" class="@GetActiveClass("/Tokens")">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Tokens
-            </NavLink>
+            </a>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link ui-font"
-                     style="
-                display: flex;
-                font-family: 'Anuphan';
-                font-optical-sizing: auto;
-                font-weight: 300;
-                font-style: normal;
-                font-size: 13px;
-                justify-content: center;
-                align-items: center;
-                width:120px;
-                height:37px;
-                color: var(--user-black);
-                border-style: solid;
-                border-color: var(--user-black);
-                border-width: 1px;
-                border-radius: 5px;
-
-            "
-                     href="Crud">
+            <a href="/Devices" class="@GetActiveClass("/Devices")">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Devices
-            </NavLink>
+            </a>
         </div>
 
-
         <div class="nav-item px-3">
-            <NavLink class="nav-link" 
-            style="
-                display: flex;
-                font-family: 'Anuphan';
-                font-optical-sizing: auto;
-                font-weight: 300;
-                font-style: normal;
-                font-size: 13px;
-                justify-content: center;
-                align-items: center;
-                width:120px;
-                height:37px;
-                
-                color: var(--user-black);
-                border-style: solid;
-                border-color: var(--user-black);
-                border-width: 1px;
-                border-radius: 5px;
-            
-            "
-            href="AddClient">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add / Upload
-            </NavLink>
+            <a href="/AddClient" class="@GetActiveClass("/AddClient")">
+                <span aria-hidden="true"></span> Add / Upload
+            </a>
         </div>
     </nav>
 </div>
+
+@code {
+    private string GetActiveClass(string href)
+    {
+        // Compare the current URL with the href to determine if this link is active
+        var currentPath = NavigationManager.Uri.Replace(NavigationManager.BaseUri, "/");
+        return currentPath == href ? "navi-link active-link" : "navi-link";
+    }
+}

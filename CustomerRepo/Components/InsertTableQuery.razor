@@ -1,0 +1,71 @@
+﻿@using CustomerRepo.Data
+@using CustomerRepo.Models
+@using Microsoft.EntityFrameworkCore
+@inject IServiceProvider ServiceProvider
+
+<div>
+    <div class="mb-3 flex" style="width:96vw; justify-content:space-evenly; gap: 2rem;">
+        <input type="text" class="form-control" placeholder="APK Path" @bind-value="@APKPathInput" />
+        <input type="button" value="Insert APK" class="btn" style="background-color: var(--user-grey)" @onclick="InsertAPKInfo" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(StatusMessage))
+    {
+        <div class="alert @(InsertSuccessful ? "alert-success" : "alert-danger")">
+            @StatusMessage
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public DbContext DatabaseContext { get; set; } = default!;
+
+    private string APKPathInput { get; set; } = string.Empty;
+    private string StatusMessage { get; set; } = string.Empty;
+    private bool InsertSuccessful { get; set; } = false;
+
+    private void InsertAPKInfo()
+    {
+        if (string.IsNullOrWhiteSpace(APKPathInput))
+        {
+            StatusMessage = "APK Path cannot be empty.";
+            InsertSuccessful = false;
+            StateHasChanged();
+            return;
+        }
+
+        try
+        {
+            // Create a new APKInfo object with dummy values
+            var newAPKInfo = new APKInfo
+                {
+                    APKName = "DummyAPK", // Dummy APK Name
+                    APKPath = APKPathInput,
+                    ApkVerNumber = "1.0.0", // Dummy Version
+                    DeviceCode = "DUMMY_DEVICE", // Dummy Device Code
+                    TokenValue = "DUMMY_TOKEN" // Dummy Token Value
+                };
+
+            // Add the new record to the database
+            DatabaseContext.Set<APKInfo>().Add(newAPKInfo);
+            DatabaseContext.SaveChanges();
+
+            // Set success message
+            StatusMessage = $"APK Info inserted successfully. Path: {APKPathInput}";
+            InsertSuccessful = true;
+
+            // Clear the input after successful insert
+            APKPathInput = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            // Set error message
+            StatusMessage = $"Error inserting APK Info: {ex.Message}";
+            InsertSuccessful = false;
+        }
+
+        // Notify the framework that the state has changed
+        StateHasChanged();
+    }
+}

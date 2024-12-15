@@ -1,0 +1,21 @@
+﻿@inject NavigationManager NavigationManager
+
+<a @onclick="Navigate" class="@CssClass">
+    @ChildContent
+</a>
+
+@code {
+    [Parameter] public string Href { get; set; } = string.Empty;
+    [Parameter] public string ActiveClass { get; set; } = "active-link";
+    [Parameter] public string DefaultClass { get; set; } = "navi-link";
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string CssClass => IsActive ? $"{DefaultClass} {ActiveClass}" : DefaultClass;
+
+    private bool IsActive => NavigationManager.Uri.EndsWith(Href.TrimStart('/'), StringComparison.OrdinalIgnoreCase);
+
+    private void Navigate()
+    {
+        NavigationManager.NavigateTo(Href);
+    }
+}

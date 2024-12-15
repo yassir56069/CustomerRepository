@@ -1,7 +1,8 @@
 ﻿.navbar {
-    border-style: solid;
-    border-color: #F3F3F3;
-    border-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #F3F3F3;
+    border-bottom-width: 2px;
+    
 }
 
 .navbar-container {
@@ -18,9 +19,10 @@
     border-radius: 7px;
 }
 
-.nav-item .nav-link ::deep a {
-    display: flex;
-    font-family: 'Anuphan';
+.navi-link {
+    text-decoration: none !important;
+    display: flex !important;
+    font-family: 'Anuphan' !important;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -31,8 +33,13 @@
     height: 37px;
     padding: 20px;
     color: var(--user-black) !important;
-    border-style: solid;
+    border-style: solid !important;
     border-color: var(--user-black);
     border-width: 1px;
     border-radius: 5px;
+}
+
+.navi-link.active-link {
+    font-weight: bold;
+    border: 2px solid var(--selected-blue); /* Highlight active link */
 }

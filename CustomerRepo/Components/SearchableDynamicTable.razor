@@ -1,0 +1,106 @@
+﻿@using CustomerRepo.Data
+@using CustomerRepo.Models
+@using Microsoft.EntityFrameworkCore
+@inject IServiceProvider ServiceProvider
+
+@typeparam T where T : class
+
+@code {
+    [Parameter, EditorRequired]
+    public DbSet<T> DbContext { get; set; } = default!;
+
+    [Parameter]
+    public IEnumerable<string>? ColumnsToShow { get; set; } = null;
+
+    [Parameter]
+    public int RowLimit { get; set; } = 100;
+
+    private List<T> Data { get; set; } = new();
+    private List<T> FilteredData { get; set; } = new();
+    private List<string> ColumnNames { get; set; } = new();
+    
+    private string SearchTerm;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (DbContext == null)
+        {
+            throw new ArgumentNullException(nameof(DbContext));
+        }
+
+        // Retrieve data from the DbSet
+        Data = await DbContext.Take(RowLimit).ToListAsync();
+
+        // Fetch column names dynamically if ColumnsToShow is not provided
+        if (ColumnsToShow == null || !ColumnsToShow.Any())
+        {
+            var modelType = typeof(T);
+            ColumnNames = modelType.GetProperties().Select(p => p.Name).ToList();
+        }
+        else
+        {
+            ColumnNames = ColumnsToShow.ToList();
+        }
+
+        // Initialize FilteredData with all data initially
+        FilteredData = new List<T>(Data);
+    }
+
+    private void ApplySearch()
+    {
+        if (string.IsNullOrWhiteSpace(SearchTerm))
+        {
+            FilteredData = new List<T>(Data);
+        }
+        else
+        {
+            FilteredData = Data.Where(item =>
+                ColumnNames.Any(columnName =>
+                {
+                    var value = GetValue(item, columnName)?.ToString();
+                    return value != null && value.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase);
+                })).ToList();
+        }
+
+        // Notify the framework that the state has changed
+        StateHasChanged();
+    }
+
+
+    private object? GetValue(T item, string columnName)
+    {
+        var property = typeof(T).GetProperty(columnName);
+        return property?.GetValue(item);
+    }
+}
+
+<div>
+    <div class="mb-3 flex" style="width:96vw; justify-content:space-evenly; gap: 2rem;">
+        <input type="text" class="form-control" placeholder="Search Term" @bind-value="@SearchTerm" />
+        <input type="button" value="Search" class="btn" style="background-color: var(--user-grey)" @onclick="ApplySearch" />
+    </div>
+    
+	<div class="dynamic-query-fill" style="width: 96vw; padding: 40px;">
+        <table class="table">
+            <thead>
+                <tr>
+                    @foreach (var columnName in ColumnNames)
+                    {
+                        <th>@columnName</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in FilteredData)
+                {
+                    <tr>
+                        @foreach (var columnName in ColumnNames)
+                        {
+                            <td>@GetValue(item, columnName)</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
